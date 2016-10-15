@@ -30,7 +30,7 @@ int main()
 	std::cout << "Parsing vanilla file...";
 	PTree mytree;
 	//vector<Token> result = tokenizer(entire_file);
-	parse_config(entire_file);
+	PTree *full_tree = parse_config(entire_file);
 
 	cout << "complete." << endl;
 

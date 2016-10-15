@@ -196,6 +196,8 @@ PTree * parse_config(const string input)
 			else if (tok->tok == RTTOK)
 			{
 				state = FINISH_CUR;
+				// compensation
+				tok--;
 			}
 			break;
 		case LOOK_EQ:
@@ -225,6 +227,8 @@ PTree * parse_config(const string input)
 				default:
 					break;
 				}
+				// compensation
+				tok--;
 			}
 			else if (tok->tok == LFTOK)
 			{
@@ -254,7 +258,7 @@ PTree * parse_config(const string input)
 			}
 			else // we are in list of value
 			{
-				ValType eltp = identify_type((tok + 1)->value);
+				ValType eltp = identify_type((tok)->value);
 				if (eltp == IVAL)
 				{
 					cur_tree->tp = IVALLIST;
@@ -294,6 +298,8 @@ PTree * parse_config(const string input)
 			else
 			{
 				state = FINISH_CUR;
+				// compensation
+				tok--;
 				break;	
 			}
 			break;
