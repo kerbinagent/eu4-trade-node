@@ -11,9 +11,10 @@ using std::endl;
 int main()
 {
 	string cmd;
-	std::cout << "EU4 Trade Node Map Explorer" << std::endl;
+	cout << "EU4 Trade Node Map Explorer" << endl;
 
 	// init IO operation
+	std::cout << "Reading from vanilla file...";
 	ifstream vanilla;
 	vanilla.open("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Europa Universalis IV\\common\\tradenodes\\00_tradenodes.txt");
 	string line;
@@ -22,9 +23,15 @@ int main()
 		entire_file.append(line);
 		entire_file.append("\n");
 	}
-	std::cout << entire_file;
+	cout << "complete." << endl;
 	vanilla.close();
+
+	// Parsing
+	std::cout << "Parsing vanilla file...";
 	PTree mytree;
+	vector<Token> result = tokenizer(entire_file);
+	cout << "complete." << endl;
+
 	while (std::cin >> cmd) {
 	}
 	return 0;
