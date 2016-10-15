@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include "Parser.h"
+#include "TradeNode.h"
 using std::string;
 using std::ifstream;
 using std::cout;
@@ -31,6 +32,7 @@ int main()
 	PTree mytree;
 	//vector<Token> result = tokenizer(entire_file);
 	PTree *full_tree = parse_config(entire_file);
+	vector<TradeNode> allnodes = getAllNodes(full_tree);
 	delete full_tree;
 
 	cout << "complete." << endl;
