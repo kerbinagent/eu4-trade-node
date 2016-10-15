@@ -13,7 +13,17 @@ PTree::PTree()
 
 PTree::~PTree()
 {
-	return;
+	if (tp == CHIL)
+	{
+		for (auto j = 0; j < children.size(); j++)
+		{
+			children[j]->~PTree();
+		}
+	}
+	else
+	{
+		return;
+	}
 }
 
 vector<Token> tokenizer(const string input)

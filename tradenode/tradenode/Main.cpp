@@ -31,6 +31,7 @@ int main()
 	PTree mytree;
 	//vector<Token> result = tokenizer(entire_file);
 	PTree *full_tree = parse_config(entire_file);
+	delete full_tree;
 
 	cout << "complete." << endl;
 
