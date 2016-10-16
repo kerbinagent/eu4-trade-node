@@ -36,7 +36,7 @@ int main()
 	vector<TradeNode> allnodes = getAllNodes(full_tree);
 	delete full_tree;
 	MyGraph original_graph = buildGraph(allnodes);
-
+	
 	cout << "complete." << endl;
 
 	while (std::cin >> cmd) {

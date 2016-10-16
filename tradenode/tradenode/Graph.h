@@ -24,6 +24,7 @@ class MyGraph {
 public:
 	MyGraph();
 	int findPath(int startID, int endID, int maxTries);
+	void exploreGraph(int startID);
 	void pushNode(int nodeId, vector<int> adj);
 	void modifyAdj(int nodeId, vector<int> newadj);
 	void addAdj(int nodeId, int adjId);

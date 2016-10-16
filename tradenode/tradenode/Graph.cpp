@@ -69,6 +69,34 @@ int MyGraph::findPath(int startID, int endID, int maxTries)
 	return -1;
 }
 
+void MyGraph::exploreGraph(int startID)
+{
+	queue<int> exploreQ;
+	exploreQ.push(startID);
+	allNodes[startID].setDistance(0);
+	allNodes[startID].discoverIt();
+	int current;
+	while (!exploreQ.empty()) {
+
+		// dequeue current
+		current = exploreQ.front();
+		exploreQ.pop();
+		//if (allNodes[current].getDistance() == maxTries) continue;
+
+		// explore current
+		for (int x : allNodes[current].adjacencies) {
+			if (!allNodes[x].isDiscovered()) {
+				// not discovered
+				allNodes[x].discoverIt();
+				allNodes[x].setDistance(allNodes[current].getDistance() + 1);
+				allNodes[x].parent = current;
+				exploreQ.push(x);
+			}
+		}
+	}
+	return;
+}
+
 void MyGraph::pushNode(int nodeId, vector<int> adj)
 {
 	MyNode node(nodeId);
