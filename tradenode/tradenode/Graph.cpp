@@ -128,6 +128,38 @@ void MyGraph::writePath(int endID, int startID, int * pOutBuffer, int steps)
 	return;
 }
 
+
+vector<TradeNode> MyGraph::toTradeNodes(vector<TradeNode> input)
+{
+	vector<TradeNode> result = input;
+	for (auto e : result)
+	{
+		e.links = vector<LinkRecord>();
+	}
+	for (int n = 0; n<allNodes.size(); n++)
+	{
+		int fromN = allNodes[n].parent;
+		if (fromN >= 0)
+		{
+			LinkRecord cur;
+			cur.isOut = true;
+			cur.target = &result[n];
+			// look for a path
+			for (auto l : input[fromN].links)
+			{
+				if (l.target->nodeid == n)
+				{
+					cur.path = l.path;
+					break;
+				}
+			}
+			result[fromN].links.push_back(cur);
+		}
+	}
+	return result;
+}
+
+
 MyGraph buildGraph(vector<TradeNode> input)
 {
 	MyGraph result;

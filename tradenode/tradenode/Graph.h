@@ -29,11 +29,11 @@ public:
 	void modifyAdj(int nodeId, vector<int> newadj);
 	void addAdj(int nodeId, int adjId);
 	void writePath(int endID, int startID, int* pOutBuffer, int steps);
+	vector<TradeNode> toTradeNodes(vector<TradeNode> input);
 private:
 	vector<MyNode> allNodes;
 };
 
 MyGraph buildGraph(vector<TradeNode> input);
 
-//MyGraph center_graph(MyGraph graph, int startID);
 #endif

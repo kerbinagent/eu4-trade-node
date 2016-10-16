@@ -1,6 +1,7 @@
 #include "TradeNode.h"
 #include <assert.h>
 #include <algorithm>
+#include <sstream>
 LinkRecord::LinkRecord()
 {
 }
@@ -116,4 +117,38 @@ vector<TradeNode> getAllNodes(PTree * tree)
 		i++;
 	}
 	return result;
+}
+
+string printNode(TradeNode input)
+{
+	std::stringstream ss;
+	ss << input.name << "={\n\tlocation=" << input.location;
+	if (input.inland) ss << "\n\tinland=yes";
+	ss << "\n\tcolor={\n" << input.color[0] << " " << input.color[1] << " " << input.color[2] << " }";
+	for (auto l : input.links)
+	{
+		if (l.isOut)
+		{
+			ss << "\n\toutgoing={\n\t\tname=\"";
+			ss << l.target->name << "\"";
+			ss << "\n\t\tpath={\n\t\t\t";
+			for (int n = 1; n < l.path.size(); n++)
+			{
+				ss << l.path[n] << " ";
+			}
+			ss << "\n\t\t}\n\t}";
+		}
+	}
+	ss << "\n\tmembers={\n\t\t";
+	for (auto p : input.members)
+	{
+		ss << p << " ";
+	}
+	ss << "\n\t}";
+	if (input.end)
+	{
+		ss << "\n\tend=yes";
+	}
+	ss << "\n}\n";
+	return ss.str();
 }

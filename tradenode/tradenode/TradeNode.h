@@ -34,4 +34,6 @@ public:
 
 vector<TradeNode> getAllNodes(PTree *tree);
 
+string printNode(TradeNode input);
+
 #endif // !TradeNode_H__

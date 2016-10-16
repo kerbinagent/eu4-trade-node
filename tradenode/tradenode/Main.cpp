@@ -33,12 +33,11 @@ int main()
 	PTree mytree;
 	//vector<Token> result = tokenizer(entire_file);
 	PTree *full_tree = parse_config(entire_file);
-	vector<TradeNode> allnodes = getAllNodes(full_tree);
+	vector<TradeNode> original_nodes = getAllNodes(full_tree);
 	delete full_tree;
-	MyGraph original_graph = buildGraph(allnodes);
-	
+	MyGraph original_graph = buildGraph(original_nodes);
 	cout << "complete." << endl;
-
+	cout << printNode(original_nodes[0]);
 	while (std::cin >> cmd) {
 	}
 	return 0;
