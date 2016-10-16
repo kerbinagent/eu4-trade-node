@@ -97,6 +97,22 @@ int main()
 			cin >> nodeid;
 			cout << printNode(cur_map[nodeid]) << endl;
 		}
+		else if (cmd == "o" || cmd == "out")
+		{
+			if (van) continue;
+			string outpath = "centered_at_";
+			outpath.append(current_center);
+			outpath.append(".txt");
+			cout << "Writing to " << outpath << "...";
+			std::ofstream outf;
+			outf.open(outpath, std::fstream::out);
+			for (auto n : cur_map)
+			{
+				outf << printNode(n);
+			}
+			cout << "complete" << endl;
+			outf.close();
+		}
 		else if (cmd == "q" || cmd == "quit")
 		{
 			return 0;
