@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <sstream>
 #include "Parser.h"
 #include "TradeNode.h"
 #include "Graph.h"
@@ -105,11 +106,13 @@ int main()
 			outpath.append(".txt");
 			cout << "Writing to " << outpath << "...";
 			std::ofstream outf;
+			std::stringstream ss;
 			outf.open(outpath, std::fstream::out);
 			for (auto n : cur_map)
 			{
-				outf << printNode(n);
+				 ss << printNode(n);
 			}
+			outf << ss.str();
 			cout << "complete" << endl;
 			outf.close();
 		}

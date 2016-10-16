@@ -124,7 +124,10 @@ string printNode(TradeNode input)
 	std::stringstream ss;
 	ss << input.name << "={\n\tlocation=" << input.location;
 	if (input.inland) ss << "\n\tinland=yes";
-	ss << "\n\tcolor={\n" << input.color[0] << " " << input.color[1] << " " << input.color[2] << " }";
+	if (input.color[0] + input.color[1] + input.color[2] > 0)
+	{
+		ss << "\n\tcolor={\n" << input.color[0] << " " << input.color[1] << " " << input.color[2] << " }";
+	}
 	for (auto l : input.links)
 	{
 		if (l.isOut)
