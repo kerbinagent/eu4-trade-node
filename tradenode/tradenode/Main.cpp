@@ -12,7 +12,6 @@ using std::endl;
 #define BUFFERSIZE 128
 int main()
 {
-	string cmd;
 	cout << "EU4 Trade Node Map Explorer" << endl;
 
 	// init IO operation
@@ -37,8 +36,71 @@ int main()
 	delete full_tree;
 	MyGraph original_graph = buildGraph(original_nodes);
 	cout << "complete." << endl;
-	cout << printNode(original_nodes[0]);
-	while (std::cin >> cmd) {
+
+	// simple repl
+	string cmd;
+	bool van = true;
+	string current_center;
+	vector<TradeNode> cur_map;
+	cur_map = original_nodes;
+	while (std::getline(std::cin, cmd)) {
+		if (cmd == "where")
+		{
+			if (van) {
+				cout << "This is the vanilla trade node config" << endl;
+			}
+			else
+			{
+				cout << "This is config centered around " << current_center<< endl;
+			}
+		}
+		else if (cmd == "vanilla")
+		{
+			van = true;
+			cur_map = original_nodes;
+		}
+		else if (cmd == "ls")
+		{
+			for (auto n : original_nodes)
+			{
+				cout << n.name << endl;
+			}
+		}
+		else if (cmd == "center" || cmd == "c")
+		{
+			cout << "Please provide a new center" << endl;	
+			int centerid;
+			cin >> centerid;
+			MyGraph newg = original_graph;
+			newg.exploreGraph(centerid);
+			cur_map = newg.toTradeNodes(original_nodes);
+			cout << "New config generated" << endl;
+			van = false;
+			current_center = cur_map[centerid].name;
+		}
+		else if (cmd == "s" || cmd == "search")
+		{
+			cout << "Please provide a search string" << endl;
+			string searchkey;
+			cin >> searchkey;
+			cout << endl;
+			for (auto n : original_nodes) 
+			{
+				auto found = n.name.find(searchkey);
+				if (found != std::string::npos) cout << n.name << " " << n.nodeid << endl;
+			}
+		}
+		else if (cmd == "p" || cmd == "print")
+		{
+			cout << "Please provide an id for print" << endl;
+			int nodeid;
+			cin >> nodeid;
+			cout << printNode(cur_map[nodeid]) << endl;
+		}
+		else if (cmd == "q" || cmd == "quit")
+		{
+			return 0;
+		}
 	}
 	return 0;
 }
