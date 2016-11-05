@@ -37,7 +37,7 @@ public:
 				}
 				else
 				{
-					if (slopearr[j][i].calculated = true)
+					if (slopearr[j][i].calculated == true)
 					{
 						slopearr[i][j] = slopearr[j][i];
 					}
