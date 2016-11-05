@@ -15,7 +15,7 @@ class Solution {
 public:
 	int maxPoints(vector<Point>& points) {
 		int n = points.size();
-		if (n < 2) return n;
+		if (n <= 2) return n;
 		vector<vector<struct Record>> slopearr;
 		for (int i = 0; i < n; i++)
 		{
@@ -45,6 +45,11 @@ public:
 					{
 						if (points[j].x - points[i].x == 0)
 						{
+							if (points[j].y == points[i].y) {
+								slopearr[i][0].dup++;
+								slopearr[i][j].type = -1;
+								continue;
+							}
 							slopearr[i][j].type = 2;
 						}
 						else
@@ -64,18 +69,19 @@ public:
 		for (int i = 0; i < n; i++)
 		{
 			int count = 2;
+			int thisDup = slopearr[i][0].dup;
 			std::sort(slopearr[i].begin(), slopearr[i].end(), customLess);
 			for (int j = 1; j < n; j++)
 			{
-				if (slopearr[i][j].type == slopearr[i][j - 1].type && slopearr[i][j].slope == slopearr[i][j-1].slope)
+				if (slopearr[i][j].type == slopearr[i][j - 1].type && slopearr[i][j].slope == slopearr[i][j-1].slope && slopearr[i][j].type != -1)
 				{
 					count++;
-					if (count > max) max = count;
+					if (count + thisDup > max) max = count + thisDup;
 
 				}
 				else
 				{
-					if (count > max) max = count;
+					if (count + thisDup > max) max = count + thisDup;
 					count = 2;
 				}
 			}
@@ -87,13 +93,15 @@ private:
 		int type;
 		float slope;
 		bool calculated;
-		Record() : calculated(false), slope(0) {}
+		int dup;
+		Record() : calculated(false), slope(0), dup(0) {}
 	};
 	struct {
 		bool operator()(struct Record a, struct Record b)
 		{
+			if (a.type == -1) return false;
 			if (a.type == 0) return true;
-			if (a.type == 1) return false;
+			if (a.type == 2) return false;
 			return (a.slope < b.slope);
 		}
 	} customLess;
